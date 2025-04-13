@@ -1,0 +1,47 @@
+{% load static %}
+{% load bootstrap3 %}
+
+<html>
+<body>
+<a href="/login/vk-oauth2"><img src="/static/lvk.png" class="avatar-3" data-toggle="tooltip" title="VK"></a>
+{% if results %}
+<div class="container col-md-12">
+    {% if add_item %}
+    <input type="button" value="Добавить" class="btn btn-success" data-url="{{ add_item }}" id="add_item">
+    <br>
+    <br>
+    {% endif %}
+    <table style="table-layout: fixed; width: 100%; border: 3px solid black;" class="table table-hover table-bordered sortable" id="results">
+        <thead>
+        {% for result in results_header %}
+        <th>{{ result|safe }}</th>
+        {% endfor %}
+        {% if results_header_vertical %}
+        <th><div>{{ results_header_vertical.0|safe }}</div></th>
+        {% endif %}
+        {% for result in results_header_vertical|slice:"1:" %}
+        <th><div class="vertical">{{ result|safe }}</div></th>
+        {% endfor %}
+        {% for result in results_header_width %}
+        <th width="{{ result.0|safe }}">{{ result.1|safe }}</th>
+        {% endfor %}
+        </thead>
+        <tbody>
+        {% for result_row in results %}
+        <tr>
+            {% for result in result_row %}
+            <td style="border: 3px solid black;">{{ result|safe }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if add_item %}
+    <input type="button" value="Добавить" class="btn btn-success" data-url="{{ add_item }}" id="add_item">
+    <br>
+    {% endif %}
+</div>
+{% endif %}
+
+</body>
+</html>
